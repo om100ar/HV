@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar Delgado - Portafolio Profesional</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* ======== DEFINICIÓN DE TEMAS (COLORES) ======== */
+        :root, [data-theme="dark"] {
+            --bg-primary: #111827; --bg-secondary: #1F2937; --text-primary: #E5E7EB;
+            --text-secondary: #9CA3AF; --accent-primary: #3B82F6; --accent-secondary: #60A5FA;
+            --glow-color: rgba(59, 130, 246, 0.3); --font-family: 'Inter', sans-serif;
+        }
+        [data-theme="light"] {
+            --bg-primary: #F9FAFB; --bg-secondary: #FFFFFF; --text-primary: #1F2937;
+            --text-secondary: #4B5563; --accent-primary: #2563EB; --accent-secondary: #3B82F6;
+            --glow-color: rgba(37, 99, 235, 0.2); --font-family: 'Inter', sans-serif;
+        }
+        [data-theme="professional"] {
+            --bg-primary: #E5E7EB; --bg-secondary: #FFFFFF; --text-primary: #111827;
+            --text-secondary: #374151; --accent-primary: #047857; --accent-secondary: #059669;
+            --glow-color: rgba(4, 120, 87, 0.2); --font-family: 'Inter', sans-serif;
+        }
+        [data-theme="fun"] {
+            --bg-primary: #1E1B4B; --bg-secondary: #312E81; --text-primary: #E0E7FF;
+            --text-secondary: #A5B4FC; --accent-primary: #F472B6; --accent-secondary: #F9A8D4;
+            --glow-color: rgba(244, 114, 182, 0.3); --font-family: 'Inter', sans-serif;
+        }
+        [data-theme="tech"] {
+            --bg-primary: #0D1117; --bg-secondary: #161B22; --text-primary: #C9D1D9;
+            --text-secondary: #8B949E; --accent-primary: #58A6FF; --accent-secondary: #3FB950; /* Verde */
+            --glow-color: rgba(63, 185, 80, 0.3); --font-family: 'Fira Code', monospace;
+        }
+
+        /* ======== ESTILOS GENERALES Y DE LAYOUT ======== */
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.5s, color 0.5s, font-family 0.5s;
+        }
+        html { scroll-behavior: smooth; }
+        .glow-card {
+            background-color: var(--bg-secondary);
+            transition: all 0.3s ease-in-out;
+        }
+        .glow-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px 7px var(--glow-color);
+        }
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        /* Estilos para Layout de Línea de Tiempo (Profesional) */
+        .timeline { position: relative; padding-left: 2.5rem; }
+        .timeline::before { content: ''; position: absolute; left: 1rem; top: 0; bottom: 0; width: 2px; background-color: var(--accent-primary); }
+        .timeline-item { position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -2.05rem; top: 0.5rem; width: 1rem; height: 1rem; border-radius: 9999px; background-color: var(--bg-secondary); border: 2px solid var(--accent-primary); }
+
+        /* Estilos para Layout Horizontal (Divertido) */
+        .horizontal-scroll-container { scroll-snap-type: x mandatory; }
+        .horizontal-scroll-container > section { scroll-snap-align: start; }
+        #horizontal-nav { display: none; }
+
+        /* Estilos para Layout Tech */
+        .typewriter-cursor { animation: blink 1s step-end infinite; }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent-secondary); } }
+        .section-command-header { cursor: pointer; }
+        .section-collapsible-body { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ===== SELECTOR DE TEMAS FIJO ===== -->
+    <div class="fixed top-4 right-4 z-50">
+        <div class="flex items-center space-x-2 bg-gray-900/50 backdrop-blur-sm p-2 rounded-full">
+            <button title="Estilo Tech" data-theme-switcher="tech" class="w-8 h-8 rounded-full bg-green-500/20 border-2 border-transparent flex items-center justify-center" style="color: #3FB950;"><i data-lucide="terminal" class="w-5 h-5"></i></button>
+            <button title="Estilo Profesional" data-theme-switcher="professional" class="w-8 h-8 rounded-full bg-emerald-700 border-2 border-transparent"></button>
+            <button title="Estilo Oscuro" data-theme-switcher="dark" class="w-8 h-8 rounded-full bg-gray-800 border-2 border-blue-500"></button>
+            <button title="Estilo Claro" data-theme-switcher="light" class="w-8 h-8 rounded-full bg-gray-100 border-2 border-transparent"></button>
+        </div>
+    </div>
+    
+    <nav id="horizontal-nav" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50"><!-- Nav para estilo 'fun' --></nav>
+
+    <main id="main-container" class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+        <header id="inicio" class="flex flex-col sm:flex-row items-center justify-between mb-24">
+             <div class="text-center sm:text-left mb-8 sm:mb-0">
+                <h1 id="typewriter-h1" class="text-4xl sm:text-5xl font-bold tracking-tight" style="color: var(--text-primary);">Omar Ricardo Delgado Luna</h1>
+                <h2 id="typewriter-h2" class="mt-2 text-xl sm:text-2xl font-medium" style="color: var(--accent-primary);">Ingeniero de Sistemas / Desarrollador</h2>
+                <p class="mt-4 max-w-xl text-lg" style="color: var(--text-secondary);">Ingeniero de Sistemas con 13+ años de experiencia, 10 de ellos dedicados a la ingeniería de datos y Business Intelligence. Mi especialidad es convertir datos complejos en inteligencia de negocio accionable a través de procesos ETL eficientes y soluciones de software de alta calidad.</p>
+                <div class="mt-6 flex justify-center sm:justify-start space-x-5"><a href="#" class="hover:scale-110 transition-transform" style="color: var(--text-secondary);" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a><a href="#" class="hover:scale-110 transition-transform" style="color: var(--text-secondary);" aria-label="GitHub"><i data-lucide="github"></i></a><a href="mailto:tuemail@example.com" class="hover:scale-110 transition-transform" style="color: var(--text-secondary);" aria-label="Email"><i data-lucide="mail"></i></a></div>
+            </div>
+            <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden bg-gray-700 border-4 shadow-lg shrink-0" style="border-color: var(--accent-primary);"><img src="https://placehold.co/200x200/374151/E5E7EB?text=Tu+Foto" alt="Foto de perfil de [Tu Nombre]" class="w-full h-full object-cover"></div>
+        </header>
+
+        <div id="column-container" class="w-full">
+            <div id="column-left" class="w-full">
+                <section id="experiencia" data-section-name="experiencia.sh" class="mb-24">
+                    <div class="section-header-container"><h3 class="text-3xl font-bold mb-8 flex items-center" style="color: var(--text-primary);"><i data-lucide="briefcase" class="mr-3" style="color: var(--accent-primary);"></i>Experiencia Laboral</h3></div>
+                    <div id="experience-content" class="section-content-container space-y-8">
+                        <div class="glow-card p-6 rounded-lg timeline-item">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                                <h4 class="text-xl font-semibold" style="color: var(--accent-secondary);">Desarrollador Senior</h4>
+                                <p class="text-sm mt-1 sm:mt-0" style="color: var(--text-secondary);">Diciembre 2021 - Presente</p>
+                            </div>
+                            <p class="text-md font-medium mb-3" style="color: var(--text-primary);">Capgemini | Remoto</p>
+                            <ul class="list-disc list-inside space-y-2" style="color: var(--text-secondary);">
+                                <li>Desarrollo y mantenimiento de etls en pentaho, shells y bases de datos.</li>
+                                <li>Colaboración en equipos ágiles para la definición de requerimientos.</li>
+                            </ul>
+                        </div>
+                        <div class="glow-card p-6 rounded-lg timeline-item">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                                <h4 class="text-xl font-semibold" style="color: var(--accent-secondary);">Consultor DataStage</h4>
+                                <p class="text-sm mt-1 sm:mt-0" style="color: var(--text-secondary);">Abril 2020 - Diciembre 2021</p>
+                            </div>
+                            <p class="text-md font-medium mb-3" style="color: var(--text-primary);">NTT Data | Bogotá, Colombia</p>
+                            <ul class="list-disc list-inside space-y-2" style="color: var(--text-secondary);">
+                                <li>Maquetación de interfaces de usuario a partir de diseños en Figma.</li>
+                                <li>Creación de componentes reutilizables con HTML, CSS y JavaScript.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="column-right" class="w-full">
+                <section id="proyectos" data-section-name="proyectos.json" class="mb-24">
+                    <div class="section-header-container"><h3 class="text-3xl font-bold mb-8 flex items-center" style="color: var(--text-primary);"><i data-lucide="lightbulb" class="mr-3" style="color: var(--accent-primary);"></i>Proyectos</h3></div>
+                    <div class="section-content-container grid grid-cols-1 md:grid-cols-2 gap-8"><div class="glow-card p-6 rounded-lg"><h4 class="text-xl font-semibold mb-2" style="color: var(--accent-secondary);">Proyecto 1</h4><p class="mb-4 text-sm" style="color: var(--text-secondary);">Breve descripción del proyecto, las tecnologías utilizadas y el objetivo principal.</p><div class="flex items-center space-x-4"><a href="#" class="flex items-center space-x-1 hover:underline text-sm" style="color: var(--accent-primary);"><i data-lucide="external-link" class="w-4 h-4"></i><span>Demo</span></a><a href="#" class="flex items-center space-x-1 hover:underline text-sm" style="color: var(--accent-primary);"><i data-lucide="github" class="w-4 h-4"></i><span>Código</span></a></div></div><div class="glow-card p-6 rounded-lg"><h4 class="text-xl font-semibold mb-2" style="color: var(--accent-secondary);">Proyecto 2</h4><p class="mb-4 text-sm" style="color: var(--text-secondary);">Breve descripción de otro proyecto, las tecnologías y su propósito.</p><div class="flex items-center space-x-4"><a href="#" class="flex items-center space-x-1 hover:underline text-sm" style="color: var(--accent-primary);"><i data-lucide="external-link" class="w-4 h-4"></i><span>Demo</span></a><a href="#" class="flex items-center space-x-1 hover:underline text-sm" style="color: var(--accent-primary);"><i data-lucide="github" class="w-4 h-4"></i><span>Código</span></a></div></div></div>
+                </section>
+                <section id="habilidades" data-section-name="habilidades.csv" class="mb-24">
+                    <div class="section-header-container"><h3 class="text-3xl font-bold mb-8 flex items-center" style="color: var(--text-primary);"><i data-lucide="cpu" class="mr-3" style="color: var(--accent-primary);"></i>Habilidades</h3></div>
+                    <div class="section-content-container"><div class="glow-card p-6 rounded-lg"><h4 class="text-xl font-semibold mb-4" style="color: var(--accent-secondary);">Técnicas y Blandas</h4><div class="flex flex-wrap gap-2"><span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: var(--accent-primary); color: var(--bg-primary);">JavaScript</span><span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: var(--accent-primary); color: var(--bg-primary);">React</span><span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--accent-secondary)">Comunicación</span><span class="text-sm font-medium px-3 py-1 rounded-full" style="background-color: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--accent-secondary)">Trabajo en Equipo</span></div></div></div>
+                </section>
+                <section id="educacion" data-section-name="educacion.txt" class="mb-24">
+                    <div class="section-header-container"><h3 class="text-3xl font-bold mb-8 flex items-center" style="color: var(--text-primary);"><i data-lucide="graduation-cap" class="mr-3" style="color: var(--accent-primary);"></i>Educación</h3></div>
+                    <div class="section-content-container"><div class="glow-card p-6 rounded-lg timeline-item"><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-1"><h4 class="text-xl font-semibold" style="color: var(--accent-secondary);">Ingeniería de Sistemas</h4><p class="text-sm mt-1 sm:mt-0" style="color: var(--text-secondary);">2015 - 2020</p></div><p class="text-md font-medium" style="color: var(--text-primary);">Universidad Nacional de Ejemplo | Ciudad, País</p></div></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="py-6" style="background-color: var(--bg-secondary);">
+        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center" style="color: var(--text-secondary);">
+            <p>&copy; 2025</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const docElement = document.documentElement;
+        const mainContainer = document.getElementById('main-container');
+        const columnContainer = document.getElementById('column-container');
+        const colLeft = document.getElementById('column-left');
+        const colRight = document.getElementById('column-right');
+        const experienceContent = document.getElementById('experience-content');
+        const educationSection = document.getElementById('educacion');
+        const horizontalNav = document.getElementById('horizontal-nav');
+        const footer = document.getElementById('footer');
+        const allSections = document.querySelectorAll('section');
+        let typewriterInterval;
+
+        const themeSwitchers = document.querySelectorAll('[data-theme-switcher]');
+        themeSwitchers.forEach(switcher => {
+            switcher.addEventListener('click', () => {
+                themeSwitchers.forEach(s => s.classList.remove('border-blue-500'));
+                switcher.classList.add('border-blue-500');
+                const theme = switcher.dataset.themeSwitcher;
+                applyThemeAndLayout(theme);
+            });
+        });
+
+        function applyThemeAndLayout(theme) {
+            docElement.setAttribute('data-theme', theme);
+            resetLayouts();
+
+            switch (theme) {
+                case 'light':
+                    columnContainer.classList.add('md:grid', 'md:grid-cols-2', 'md:gap-12');
+                    colRight.append(document.getElementById('proyectos'), document.getElementById('habilidades'), document.getElementById('educacion'));
+                    colLeft.append(document.getElementById('experiencia'));
+                    break;
+                case 'professional':
+                    experienceContent.classList.add('timeline');
+                    document.querySelector('#educacion .section-content-container').classList.add('timeline');
+                    break;
+                case 'fun':
+                    document.body.classList.add('overflow-hidden');
+                    mainContainer.classList.add('flex', 'overflow-x-auto', 'h-screen', 'w-full', 'p-0', 'max-w-none', 'horizontal-scroll-container');
+                    mainContainer.prepend(document.getElementById('inicio'));
+                    footer.classList.add('hidden');
+                    setupHorizontalLayout();
+                    break;
+                case 'tech':
+                    setupTechLayout();
+                    break;
+                case 'dark':
+                default:
+                    break;
+            }
+            
+            lucide.createIcons();
+            initializeScrollAnimations();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetLayouts() {
+            if (typewriterInterval) clearInterval(typewriterInterval);
+            document.body.classList.remove('overflow-hidden');
+            mainContainer.classList.remove('flex', 'overflow-x-auto', 'h-screen', 'w-full', 'p-0', 'max-w-none', 'horizontal-scroll-container');
+            columnContainer.classList.remove('md:grid', 'md:grid-cols-2', 'md:gap-12');
+            experienceContent.classList.remove('timeline');
+            document.querySelector('#educacion .section-content-container').classList.remove('timeline');
+            
+            mainContainer.prepend(document.getElementById('inicio'));
+            columnContainer.prepend(colLeft, colRight);
+            colRight.append(document.getElementById('proyectos'), document.getElementById('habilidades'), document.getElementById('educacion'));
+            colLeft.append(document.getElementById('experiencia'));
+            
+            allSections.forEach(s => {
+                s.classList.remove('w-screen', 'h-screen', 'flex-shrink-0', 'flex', 'items-center', 'justify-center', 'p-8');
+                const headerContainer = s.querySelector('.section-header-container');
+                const contentContainer = s.querySelector('.section-content-container');
+                if(headerContainer && headerContainer.dataset.originalHtml) {
+                    headerContainer.innerHTML = headerContainer.dataset.originalHtml;
+                }
+                if(contentContainer) {
+                    contentContainer.style.maxHeight = '';
+                    contentContainer.classList.remove('section-collapsible-body', 'p-4', 'border-l-2');
+                    contentContainer.style.borderColor = 'var(--accent-primary)';
+                }
+            });
+            
+            horizontalNav.style.display = 'none';
+            footer.classList.remove('hidden');
+            document.getElementById('typewriter-h1').innerHTML = 'Omar Ricardo Delgado Luna';
+            document.getElementById('typewriter-h2').innerHTML = 'Ingeniero de Sistemas / Desarrollador';
+        }
+
+        function setupHorizontalLayout() {
+            horizontalNav.style.display = 'flex';
+            const navContainer = horizontalNav.querySelector('div') || document.createElement('div');
+            navContainer.className = 'flex items-center space-x-3 bg-gray-900/50 backdrop-blur-sm px-4 py-2 rounded-full';
+            navContainer.innerHTML = '';
+            horizontalNav.appendChild(navContainer);
+            
+            const scrollSections = Array.from(mainContainer.children).filter(el => ['HEADER', 'SECTION'].includes(el.tagName));
+            scrollSections.forEach(s => s.classList.add('w-screen', 'h-screen', 'flex-shrink-0', 'flex', 'items-center', 'justify-center', 'p-8'));
+            
+            scrollSections.forEach((section, index) => {
+                const dot = document.createElement('button');
+                dot.className = `w-3 h-3 rounded-full transition-colors bg-white/30 hover:bg-white/60 ${index === 0 ? 'bg-white' : ''}`;
+                dot.addEventListener('click', () => section.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' }));
+                navContainer.appendChild(dot);
+            });
+
+            mainContainer.onscroll = () => {
+                const dots = navContainer.querySelectorAll('button');
+                const activeIndex = Math.round(mainContainer.scrollLeft / window.innerWidth);
+                dots.forEach((dot, index) => dot.classList.toggle('bg-white', index === activeIndex));
+            };
+        }
+
+        function typewriter(element, text, speed) {
+            let i = 0;
+            element.innerHTML = '';
+            const span = document.createElement('span');
+            element.appendChild(span);
+            const cursor = document.createElement('span');
+            cursor.className = 'border-r-2 typewriter-cursor';
+            cursor.innerHTML = '&nbsp;';
+            element.appendChild(cursor);
+
+            typewriterInterval = setInterval(() => {
+                if (i < text.length) {
+                    span.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typewriterInterval);
+                    cursor.style.display = 'none';
+                }
+            }, speed);
+        }
+
+        function setupTechLayout() {
+            typewriter(document.getElementById('typewriter-h1'), 'Omar Ricardo Delgado Luna', 75);
+            setTimeout(() => typewriter(document.getElementById('typewriter-h2'), 'Ingeniero de Sistemas / Desarrollador', 75), 2000);
+
+            allSections.forEach(section => {
+                const headerContainer = section.querySelector('.section-header-container');
+                const contentContainer = section.querySelector('.section-content-container');
+                const sectionName = section.dataset.sectionName;
+
+                if (!headerContainer.dataset.originalHtml) {
+                    headerContainer.dataset.originalHtml = headerContainer.innerHTML;
+                }
+
+                headerContainer.innerHTML = `<div class="section-command-header text-lg p-2 flex items-center gap-2"><span style="color: var(--accent-secondary);">></span><span>./${sectionName}</span><span class="text-xs ml-auto" style="color: var(--text-secondary)">(clic para ejecutar)</span></div>`;
+                contentContainer.classList.add('section-collapsible-body');
+                
+                headerContainer.onclick = () => {
+                    const body = section.querySelector('.section-collapsible-body');
+                    if (body.style.maxHeight) {
+                        body.style.maxHeight = null;
+                        headerContainer.querySelector('span:last-child').textContent = "(clic para ejecutar)";
+                    } else {
+                        body.style.maxHeight = body.scrollHeight + "px";
+                        headerContainer.querySelector('span:last-child').textContent = "(ejecutando...)";
+                    }
+                };
+            });
+        }
+
+        function initializeScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            allSections.forEach(section => {
+                section.classList.remove('visible');
+                observer.observe(section);
+            });
+        }
+        
+        applyThemeAndLayout('dark');
+        lucide.createIcons();
+    });
+    </script>
+</body>
+</html>
